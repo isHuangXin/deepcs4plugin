@@ -16,7 +16,7 @@ function search() {
 
 	lineText = lineText.substring(lineText.lastIndexOf('/') + 1);
 
-	fetcher.fetchCode(lineText)
+	fetcher.fetchCode(lineText, 5)
 		.then(array => {
 			array.forEach(element => {
 				console.log(`${element[1]}: ${element[0]}`);
