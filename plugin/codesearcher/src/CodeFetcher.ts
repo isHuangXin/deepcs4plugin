@@ -6,8 +6,8 @@ const PROTOCAL_PREFIX = "http://";
 class CodeFetcher {
     private fetcherUrl : string;
 
-    constructor(url : string) {
-        this.fetcherUrl = PROTOCAL_PREFIX + url;
+    constructor(url : string, port : number) {
+        this.fetcherUrl = PROTOCAL_PREFIX + url + `:${port}`;
     }
 
     async fetchCode(query : string) : Promise<Array<[string, number]>> {

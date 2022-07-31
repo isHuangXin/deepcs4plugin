@@ -1,10 +1,12 @@
 # codesearcher README
 
-This is the README for your extension "codesearcher". After writing up a brief description, we recommend including the following sections.
+This is a vscode plugin to demonstrate ncc models
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- press ctrl+1 to activate QuickPick to pick a function
+	- 
+	When your cursor is on a comment line and choose function `codesearch`, it will read the comment and then query it to get some code snippets with possibilities, you can choose one that fits your need 
 
 For example if there is an image subfolder under your extension project workspace:
 
