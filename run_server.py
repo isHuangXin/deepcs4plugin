@@ -1,3 +1,4 @@
+from glob import glob
 import http
 from http.server import HTTPServer
 from http.server import BaseHTTPRequestHandler
@@ -7,12 +8,20 @@ import json
 from search import *
 import configs
 
+class NaccCodeSearchContext:
+    def __init__(self, config, model, vocab_desc):
+        self.config = config
+        self.model = model
+        self.vocab_desc = vocab_desc
+
+context = NaccCodeSearchContext(None, None, None)
+
 class NaccCodeSearchHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         query = self.headers["query"]
         n_results = int(self.headers["nresult"])
         query = query.lower().replace('how to ', '').replace('how do i ', '').replace('how can i ', '').replace('?', '').strip()
-        results = search(config, model, vocab_desc, query, n_results)
+        results = search(context.config, context.model, context.vocab_desc, query, n_results)
         results = sorted(results, reverse=True, key=lambda x:x[1])
         results = postproc(results)
         results = list(results)[:n_results]
@@ -45,4 +54,6 @@ if __name__ == "__main__":
     assert len(codebase)==len(codevecs), \
          "inconsistent number of chunks, check whether the specified files for codebase and code vectors are correct!"
 
+    context = NaccCodeSearchContext(config, model, vocab_desc)
+    
     run(HTTPServer, NaccCodeSearchHandler)
