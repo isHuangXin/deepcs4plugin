@@ -96,7 +96,7 @@ def search_thread(results, desc_repr, codevecs, i, n_results, sim_measure):
 def postproc(codes_sims):
     codes_, sims_ = zip(*codes_sims)
     codes = [code for code in codes_]
-    sims = [sim for sim in sims_]
+    sims = [float(sim) for sim in sims_]
     final_codes = []
     final_sims = []
     n = len(codes_sims)        

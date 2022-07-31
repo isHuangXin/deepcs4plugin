@@ -21,7 +21,7 @@ function search() {
 			array.forEach(element => {
 				console.log(`${element[1]}: ${element[0]}`);
 			})
-			let text = "";
+			let text = `${array[0][0]}`;
 			return text;
 		}).then(async text => {
 			editor?.edit(edit => {
