@@ -10,11 +10,11 @@ class CodeFetcher {
         this.fetcherUrl = PROTOCAL_PREFIX + url + `:${port}`;
     }
 
-    async fetchCode(query : string) : Promise<Array<[string, number]>> {
+    async fetchCode(query : string, nresult : number) : Promise<Array<[string, number]>> {
         return axios({
             method: 'get',
             url: this.fetcherUrl,
-            headers: {"query" : query},
+            headers: {"query" : query, "nresult" : nresult},
             responseType: 'json',
             responseEncoding: 'utf-8'
         }

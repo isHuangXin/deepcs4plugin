@@ -56,3 +56,10 @@ def config_JointEmbeder():
                          #cos, poly and sigmoid are fast with simple dot, while euc, gesd and aesd are slow with vector normalization.
     }
     return conf
+
+def config_HttpSever():
+    conf = {
+        'domain' : '',
+        'port'   : 8000
+    }
+    return conf

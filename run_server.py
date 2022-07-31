@@ -5,11 +5,12 @@ from http.server import BaseHTTPRequestHandler
 import json
 
 from search import *
+import configs
 
 class NaccCodeSearchHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         query = self.headers["query"]
-        n_results = 10
+        n_results = int(self.headers["nresult"])
         query = query.lower().replace('how to ', '').replace('how do i ', '').replace('how can i ', '').replace('?', '').strip()
         results = search(config, model, vocab_desc, query, n_results)
         results = sorted(results, reverse=True, key=lambda x:x[1])
@@ -20,7 +21,8 @@ class NaccCodeSearchHandler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps(results).encode('utf-8'))
 
 def run(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):
-    server_address = ('', 8000)
+    conf = configs.config_HttpSever()
+    server_address = (conf['domain'], conf['port'])
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
 
