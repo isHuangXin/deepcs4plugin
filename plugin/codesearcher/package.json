@@ -32,7 +32,7 @@
 				"codesearcher.queryPort": {
 					"type": "integer",
 					"default": 80,
-					"description": "the port to send qury"
+					"description": "the port to send query"
 				}
 			}
 		}
