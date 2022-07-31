@@ -10,7 +10,7 @@ import configs
 class NaccCodeSearchHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         query = self.headers["query"]
-        n_results = 10
+        n_results = int(self.headers["nresult"])
         query = query.lower().replace('how to ', '').replace('how do i ', '').replace('how can i ', '').replace('?', '').strip()
         results = search(config, model, vocab_desc, query, n_results)
         results = sorted(results, reverse=True, key=lambda x:x[1])
