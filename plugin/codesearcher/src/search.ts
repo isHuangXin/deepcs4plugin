@@ -1,8 +1,9 @@
-import { text } from 'stream/consumers';
 import * as vscode from 'vscode';
 import CodeFetcher from './CodeFetcher';
 
-function search() {
+// this function will call deepcs model server and show some snippets 
+// and then insert one under the comment line
+async function search() {
 	let editor = vscode.window.activeTextEditor;
 	let cursor = editor?.selection.active;
 	let line = cursor?.line == undefined ? 0 : cursor.line;
@@ -16,19 +17,26 @@ function search() {
 
 	lineText = lineText.substring(lineText.lastIndexOf('/') + 1);
 
-	fetcher.fetchCode(lineText, 5)
-		.then(array => {
+	await fetcher.fetchCode(lineText, 5)
+		.then(async array => {
+			let select: string[] = [];
 			array.forEach(element => {
-				console.log(`${element[1]}: ${element[0]}`);
-			})
-			let text = `${array[0][0]}`;
+				select.push(`${element[1]}: ${element[0]}`);
+			});
+			let text = await vscode.window.showQuickPick(select)
+				.then(selected => {
+					if (!select) return;
+					let index = selected?.indexOf(":") as number;
+					return selected?.substring(index + 2) as string;
+				});
 			return text;
 		}).then(async text => {
+			if (!text) return;
 			editor?.edit(edit => {
 				edit.insert(new vscode.Position(line + 1, 0), text);
-			})
+			});
 			await vscode.commands.executeCommand("editor.action.formatDocument", editor?.document.uri);
-		})
+		});
 }
 
 export {
