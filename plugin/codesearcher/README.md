@@ -9,7 +9,7 @@ This is a vscode plugin to demonstrate ncc models
 
 ## Usage
 
-For example of use the plugin, there is some illustrations:
+For example of use the plugin, there are some illustrations:
 
 ![quickPick](./img/quickPick.png)
 
@@ -33,7 +33,8 @@ This extension contributes the following settings:
 ## Known Issues
 
 - the `codeSearch` function only support line comment.
-- the model now only support java lang .
+- the model now only support java lang.
+- the accuracy may be low.
 
 ## Release Notes
 
@@ -44,4 +45,3 @@ Base plugin with function codeSearch using deepcs model server.
 ## License
 
 This subproject is under MIT license.
-
